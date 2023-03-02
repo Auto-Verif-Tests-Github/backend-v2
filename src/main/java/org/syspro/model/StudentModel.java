@@ -2,6 +2,7 @@ package org.syspro.model;
 
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.syspro.entity.StudentEntity;
@@ -42,15 +43,12 @@ public class StudentModel {
         return students;
     }
 
-    public List<StudentEntity> students(long offset, int count) {
-        if(offset < 1 || count < 2 || count > 200) {
-            throw new IllegalArgumentException();
-        }
-        return studentRepos.findByIdBetween(offset, offset + count - 1);
+    public List<StudentEntity> students(Pageable pageable) {
+        return studentRepos.findAll(pageable).getContent();
     }
 
-    public List<StudentEntity> byStreamId(long streamId) {
-        return studentRepos.findByStreamId(streamId);
+    public List<StudentEntity> byStreamId(long streamId, Pageable pageable) {
+        return studentRepos.findByStreamId(streamId, pageable).getContent();
     }
 
     public StudentEntity byGithubNickname(String nickname) {

@@ -1,6 +1,7 @@
 package org.syspro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.syspro.entity.CourseEntity;
 import org.syspro.model.CourseModel;
@@ -25,22 +26,17 @@ public class CourseController {
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    private List<CourseEntity> courses(@RequestParam(required = false, defaultValue = "1") long offset,
-                                       @RequestParam(required = false, defaultValue = "10") int count) {
-        return courseModel.courses(offset, count);
+    private List<CourseEntity> courses(Pageable pageable) {
+        return courseModel.courses(pageable);
     }
 
     @RequestMapping(value = "/by.educator.id", method = {RequestMethod.GET, RequestMethod.POST})
-    private List<CourseEntity> byEducatorId(@RequestParam(name = "educator_id") long educatorId,
-                                            @RequestParam(required = false, defaultValue = "1") long offset,
-                                            @RequestParam(required = false, defaultValue = "10") int count) {
-        return courseModel.byEducatorId(educatorId, offset, count);
+    private List<CourseEntity> byEducatorId(@RequestParam(name = "educator_id") long educatorId, Pageable pageable) {
+        return courseModel.byEducatorId(educatorId, pageable);
     }
 
     @RequestMapping(value = "/by.stream.id", method = {RequestMethod.GET, RequestMethod.POST})
-    private List<CourseEntity> byStreamId(@RequestParam(name = "stream_id") long streamId,
-                                          @RequestParam(required = false, defaultValue = "1") long offset,
-                                          @RequestParam(required = false, defaultValue = "10") int count) {
-        return courseModel.byStreamId(streamId, offset, count);
+    private List<CourseEntity> byStreamId(@RequestParam(name = "stream_id") long streamId, Pageable pageable) {
+        return courseModel.byStreamId(streamId, pageable);
     }
 }

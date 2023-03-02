@@ -1,6 +1,7 @@
 package org.syspro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.syspro.entity.EducatorEntity;
 import org.syspro.model.EducatorModel;
@@ -26,9 +27,8 @@ public class EducatorController {
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    private List<EducatorEntity> educators(@RequestParam(required = false, defaultValue = "1") long offset,
-                                           @RequestParam(required = false, defaultValue = "10") int count) {
-        return educatorModel.educators(offset, count);
+    private List<EducatorEntity> educators(Pageable pageable) {
+        return educatorModel.educators(pageable);
     }
 
     @RequestMapping(value = "/delete/{id}", method = {RequestMethod.GET, RequestMethod.POST})

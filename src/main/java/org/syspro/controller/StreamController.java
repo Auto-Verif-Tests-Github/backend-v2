@@ -1,6 +1,7 @@
 package org.syspro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.syspro.entity.StreamEntity;
 import org.syspro.model.StreamModel;
@@ -24,13 +25,12 @@ public class StreamController {
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    private List<StreamEntity> streams(@RequestParam(required = false, defaultValue = "1") long offset,
-                                       @RequestParam(required = false, defaultValue = "10") int count) {
-        return streamModel.streams(offset, count);
+    private List<StreamEntity> streams(Pageable pageable) {
+        return streamModel.streams(pageable);
     }
 
     @RequestMapping(value = "/by.title", method = {RequestMethod.GET, RequestMethod.POST})
-    private List<StreamEntity> byTitle(@RequestParam String title) {
-        return streamModel.byTitle(title);
+    private List<StreamEntity> byTitle(@RequestParam String title, Pageable pageable) {
+        return streamModel.byTitle(title, pageable);
     }
 }

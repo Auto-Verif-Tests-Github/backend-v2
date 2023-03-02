@@ -1,6 +1,7 @@
 package org.syspro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.syspro.entity.StudentEntity;
@@ -27,14 +28,13 @@ public class StudentController {
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    private List<StudentEntity> students(@RequestParam(required = false, defaultValue = "1") long offset,
-                                         @RequestParam(required = false, defaultValue = "10") int count) {
-        return studentModel.students(offset, count);
+    private List<StudentEntity> students(Pageable pageable) {
+        return studentModel.students(pageable);
     }
 
     @RequestMapping(value = "/by.stream.id", method = {RequestMethod.GET, RequestMethod.POST})
-    private List<StudentEntity> byStreamId(@RequestParam long streamId) {
-        return studentModel.byStreamId(streamId);
+    private List<StudentEntity> byStreamId(@RequestParam long streamId, Pageable pageable) {
+        return studentModel.byStreamId(streamId, pageable);
     }
 
     @RequestMapping(value = "/by.github.nickname", method = {RequestMethod.GET, RequestMethod.POST})

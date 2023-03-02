@@ -1,6 +1,7 @@
 package org.syspro.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.syspro.entity.EducatorEntity;
 import org.syspro.repository.EducatorRepos;
@@ -25,11 +26,8 @@ public class EducatorModel {
         return educatorRepos.save(new EducatorEntity(login, sha256.encode(password), fullName));
     }
 
-    public List<EducatorEntity> educators(long offset, int count) {
-        if(offset < 1 || count < 2 || count > 200) {
-            throw new IllegalArgumentException();
-        }
-        return educatorRepos.findByIdBetween(offset, offset + count - 1);
+    public List<EducatorEntity> educators(Pageable pageable) {
+        return educatorRepos.findAll(pageable).getContent();
     }
 
     public Map<?,?> delete(long id) {
