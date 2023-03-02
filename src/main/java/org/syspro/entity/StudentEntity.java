@@ -1,5 +1,7 @@
 package org.syspro.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +12,12 @@ public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @JsonProperty("stream_id")
     private long streamId;
-    private String fullName, githubNickname;
+    @JsonProperty("full_name")
+    private String fullName;
+    @JsonProperty("github_nickname")
+    private String githubNickname;
 
     public StudentEntity() {
     }
