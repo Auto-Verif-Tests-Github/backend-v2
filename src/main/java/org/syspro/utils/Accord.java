@@ -9,4 +9,10 @@ public class Accord {
             throw new IllegalArgumentException("args not match pattern");
         }
     }
+
+    public void paramsDateUNIXCheck(long dateUNIX, long dateUNIXDeadline) {
+        if(dateUNIX < 1 ||dateUNIXDeadline < 1 || dateUNIX > dateUNIXDeadline) {
+            throw new IllegalArgumentException("args not match pattern");
+        }
+    }
 }
